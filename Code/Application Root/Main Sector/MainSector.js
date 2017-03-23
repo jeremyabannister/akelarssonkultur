@@ -201,6 +201,11 @@ class MainSector extends JABView {
 	// Upcoming Page
 	configureUpcomingPage () {
 		let view = this.upcomingPage
+		
+		view.backgroundColor = 'white'
+		view.overflowX = 'hidden'
+		view.overflowY = 'scroll'
+		
 		view.parameters = {
 			reservedTopBuffer: this.parameters.heightOfHeader,
 		}

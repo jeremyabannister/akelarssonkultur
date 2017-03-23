@@ -191,6 +191,11 @@ var MainSector = function (_JABView) {
 		key: 'configureUpcomingPage',
 		value: function configureUpcomingPage() {
 			var view = this.upcomingPage;
+
+			view.backgroundColor = 'white';
+			view.overflowX = 'hidden';
+			view.overflowY = 'scroll';
+
 			view.parameters = {
 				reservedTopBuffer: this.parameters.heightOfHeader
 			};
