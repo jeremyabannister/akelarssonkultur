@@ -110,7 +110,12 @@ var Logo = function (_JABView) {
 
 			var view = this.carpentryLabel;
 
-			view.text = "KULTUR & UTBILDNING";
+			if (sizeClass == 'xxs' || sizeClass == 'xs') {
+				view.text = "KULTUR\n& UTBILDNING";
+			} else {
+				view.text = "KULTUR & UTBILDNING";
+			}
+
 			view.textColor = 'black';
 
 			var fontSizes = { 'xxs': 10, 'xs': 10, 's': 15, 'm': 11, 'l': 11, 'xl': 12 };

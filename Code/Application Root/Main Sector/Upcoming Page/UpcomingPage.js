@@ -72,7 +72,7 @@ class UpcomingPage extends JABView {
 		let newFrame = new CGRect()
 					
 		newFrame.size.width = (applicationRoot.contentWidth * 0.7)
-		if (sizeClass == 'xs' || sizeClass == 'xxs') { newFrame.size.width = applicationRoot.contentWidth }
+		if (sizeClass == 'xs' || sizeClass == 'xxs') { newFrame.size.width = applicationRoot.contentWidth * 0.7 }
 		newFrame.size.height = view.requiredHeightForWidth(newFrame.size.width)
 
 		newFrame.origin.x = (this.width - newFrame.size.width)/2

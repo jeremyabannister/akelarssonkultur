@@ -136,6 +136,10 @@ var ApplicationRoot = function (_JABApplicationRoot) {
 				this.positionLaboratory();
 			} else {
 
+				if (sizeClass == 'xxs' || sizeClass == 'xs') {
+					this.parameters.heightOfHeader = 70;
+				}
+
 				this.configureLoadingGifWrapper();
 				this.positionLoadingGifWrapper();
 

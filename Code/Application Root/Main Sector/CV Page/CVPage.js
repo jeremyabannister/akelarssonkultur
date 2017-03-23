@@ -77,7 +77,12 @@ class CVPage extends JABView {
 		
 		view.overflowX = 'hidden'
 		
-		view.parameters = { reservedTopBuffer: this.parameters.reservedTopBuffer }
+		if (sizeClass == 'xxs' || sizeClass == 'xs') {
+			view.parameters = { reservedTopBuffer: this.parameters.reservedTopBuffer + this.parameters.sizeOfImageView + this.parameters.topBufferForImageView }
+		} else {
+			view.parameters = { reservedTopBuffer: this.parameters.reservedTopBuffer }
+		}
+		
 		view.updateAllUI()
 	}
 	
@@ -112,7 +117,13 @@ class CVPage extends JABView {
 		var rightOfPDFPage = this.width/2
 		if (this.pdfViewer.pageViews.length > 0) { rightOfPDFPage = this.pdfViewer.pageViews[0].right }
 		newFrame.origin.x = rightOfPDFPage + ((this.width - rightOfPDFPage) - newFrame.size.width)/2
+		
+		if (sizeClass == 'xxs' || sizeClass == 'xs') {
+			newFrame.origin.x = (this.width - newFrame.size.width)/2
+		}
+		
 		newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForImageView
+		
 		
 		// if (sizeClass == )
 							

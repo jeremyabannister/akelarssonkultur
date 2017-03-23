@@ -140,6 +140,10 @@ class ApplicationRoot extends JABApplicationRoot {
 		} else {
 			
 			
+			if (sizeClass == 'xxs' || sizeClass == 'xs') {
+				this.parameters.heightOfHeader = 70
+			}
+			
 			
 			this.configureLoadingGifWrapper()
 			this.positionLoadingGifWrapper()

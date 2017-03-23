@@ -92,7 +92,7 @@ var UpcomingPage = function (_JABView) {
 
 			newFrame.size.width = applicationRoot.contentWidth * 0.7;
 			if (sizeClass == 'xs' || sizeClass == 'xxs') {
-				newFrame.size.width = applicationRoot.contentWidth;
+				newFrame.size.width = applicationRoot.contentWidth * 0.7;
 			}
 			newFrame.size.height = view.requiredHeightForWidth(newFrame.size.width);
 
