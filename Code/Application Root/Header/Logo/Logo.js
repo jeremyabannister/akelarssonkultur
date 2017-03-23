@@ -97,8 +97,10 @@ class Logo extends JABView {
 		
 		var view = this.carpentryLabel
 		
+		view.text = "KULTUR & UTBILDNING"
+		
 		if (sizeClass == 'xxs' || sizeClass == 'xs') {
-			view.text = "KULTUR\n& UTBILDNING"
+			
 		} else {
 			view.text = "KULTUR & UTBILDNING"
 		}
@@ -112,6 +114,7 @@ class Logo extends JABView {
 		
 		var letterSpacings = {'xxs': 7.7, 'xs': 7.7, 's': 6.4, 'm': 6.4, 'l': 6.4, 'xl': 6.4}
 		view.letterSpacing = letterSpacings[sizeClass]
+		view.textAlign = 'center'
 		view.fontWeight = 'normal'
 		
 		view.configureDuration = 200
@@ -124,7 +127,9 @@ class Logo extends JABView {
 		var view = this.carpentryLabel
 
 		var bufferBetweenAkeLarssonLabelAndCarpentryLabel = -1
-		var size = view.font.sizeOfString(view.text)
+		var constraintWidth = 0
+		if (sizeClass == 'xxs' || sizeClass == 'xs') { constraintWidth = this.akeLarssonLabel.width }
+		var size = view.font.sizeOfString(view.text, constraintWidth)
 
 		var newFrame = new CGRect()
 

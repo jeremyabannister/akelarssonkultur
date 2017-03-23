@@ -206,6 +206,8 @@ class MainSector extends JABView {
 		view.overflowX = 'hidden'
 		view.overflowY = 'scroll'
 		
+		if (this.currentlyActivePage == view) { this.bringPageToFront(view) }
+		
 		view.parameters = {
 			reservedTopBuffer: this.parameters.heightOfHeader,
 		}
