@@ -27,7 +27,10 @@ var PDFViewer = function (_JABView) {
 		_this.parameters = {
 			reservedTopBuffer: 0,
 			topBufferForPageViews: 30,
-			betweenBufferForPageViews: 8
+			betweenBufferForPageViews: 8,
+
+			pageHeightToWidthAspectRatio: 11.0 / 8.5,
+			fractionHeightForLastPage: null
 		};
 
 		// UI
@@ -90,6 +93,7 @@ var PDFViewer = function (_JABView) {
 				}
 				var view = this.pageViews[i];
 				view.backgroundImage = this.pdfDocument.imagePaths[i];
+				view.backgroundPosition = 'center top';
 			}
 		}
 	}, {
@@ -108,10 +112,16 @@ var PDFViewer = function (_JABView) {
 				}
 
 				newFrame.size.width = applicationRoot.contentWidth * { 'xxs': 1, 'xs': 1, 's': 0.6, 'm': 0.6, 'l': 0.6, 'xl': 0.6 }[sizeClass];
-				newFrame.size.height = newFrame.size.width * (11.0 / 8.5);
+				console.log(this.parameters.pageHeightToWidthAspectRatio);
+				var standardHeight = newFrame.size.width * this.parameters.pageHeightToWidthAspectRatio;
+				newFrame.size.height = standardHeight;
+
+				if (i == this.pdfDocument.imagePaths.length - 1 && this.parameters.fractionHeightForLastPage != null) {
+					newFrame.size.height = standardHeight * this.parameters.fractionHeightForLastPage;
+				}
 
 				newFrame.origin.x = (this.width - newFrame.size.width) / 2;
-				newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForPageViews + i * (newFrame.size.height + this.parameters.betweenBufferForPageViews);
+				newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForPageViews + i * (standardHeight + this.parameters.betweenBufferForPageViews);
 
 				view.frame = newFrame;
 

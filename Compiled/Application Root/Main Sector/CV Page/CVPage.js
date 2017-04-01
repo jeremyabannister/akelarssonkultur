@@ -27,7 +27,10 @@ var CVPage = function (_JABView) {
 			reservedTopBuffer: 0,
 
 			sizeOfImageView: 200,
-			topBufferForImageView: 60
+			topBufferForImageView: 60,
+
+			pageHeightToWidthAspectRatio: 11.0 / 8.5,
+			fractionHeightForLastPage: null
 		};
 
 		// UI
@@ -98,7 +101,11 @@ var CVPage = function (_JABView) {
 			if (sizeClass == 'xxs' || sizeClass == 'xs') {
 				view.parameters = { reservedTopBuffer: this.parameters.reservedTopBuffer + this.parameters.sizeOfImageView + this.parameters.topBufferForImageView };
 			} else {
-				view.parameters = { reservedTopBuffer: this.parameters.reservedTopBuffer };
+				view.parameters = {
+					reservedTopBuffer: this.parameters.reservedTopBuffer,
+					pageHeightToWidthAspectRatio: this.parameters.pageHeightToWidthAspectRatio,
+					fractionHeightForLastPage: this.parameters.fractionHeightForLastPage
+				};
 			}
 
 			view.updateAllUI();

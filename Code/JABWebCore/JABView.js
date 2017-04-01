@@ -100,6 +100,8 @@ class JABView {
 		
 		// Position
 		this.frame = new CGRect()
+		this.widthIsAuto = false
+		this.heightIsAuto = false
 		this.angle = 0
 		
 		// Shape
@@ -1235,10 +1237,15 @@ class JABView {
 	
 	
 	get frame () {
-		if (this._frame != null) {
-			return (new CGRect(this._frame.origin.x, this._frame.origin.y, this._frame.size.width, this._frame.size.height))
-		}
-		return new CGRect()
+		let elementalSelf = document.getElementById(this.id)
+		if ((this._frame == null) || ((this.widthIsAuto || this.heightIsAuto) && elementalSelf == null )) { return new CGRect() }
+		
+		var width = this._frame.size.width
+		var height = this._frame.size.height
+		if (this.widthIsAuto && elementalSelf != null) { width = elementalSelf.clientWidth }
+		if (this.heightIsAuto && elementalSelf != null) { height = elementalSelf.clientHeight }
+		
+		return (new CGRect(this._frame.origin.x, this._frame.origin.y, width, height))
 	}
 
 	set frame (newFrame) {
@@ -1261,13 +1268,16 @@ class JABView {
 				rotationTransform = ' rotate(' + this.angle + 'deg)'
 			}
 			
+			let width = {true: 'auto', false: this.width}[this.widthIsAuto]
+			let height = {true: 'auto', false: this.height}[this.heightIsAuto]
+			
 			
 			$(this.selector).css({
 				
 				transform: 'translate3d(' + this.x + 'px, ' + this.y + 'px, 0px)' + rotationTransform,
 
-				width: this.width,
-				height: this.height,
+				width: width,
+				height: height,
 			})
 
 

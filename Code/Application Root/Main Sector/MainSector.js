@@ -270,7 +270,11 @@ class MainSector extends JABView {
 		view.overflowX = 'hidden'
 		view.overflowY = 'scroll'
 		
-		view.parameters = { reservedTopBuffer: this.parameters.heightOfHeader }
+		view.parameters = {
+			reservedTopBuffer: this.parameters.heightOfHeader,
+			pageHeightToWidthAspectRatio: (3500.0/2480.0),
+			fractionHeightForLastPage: 0.65,
+		}
 		view.opacity = {true: 1, false: 0}[this.currentlyActivePage == view]
 		
 		if (this.currentlyActivePage == view) { this.bringPageToFront(view) }
@@ -294,7 +298,11 @@ class MainSector extends JABView {
 		view.overflowX = 'hidden'
 		view.overflowY = 'scroll'
 		
-		view.parameters = { reservedTopBuffer: this.parameters.heightOfHeader }
+		view.parameters = {
+			reservedTopBuffer: this.parameters.heightOfHeader,
+			fractionHeightForLastPage: 0.2,
+			pageHeightToWidthAspectRatio: (3300.0/2480.0),
+		}
 		view.opacity = {true: 1, false: 0}[this.currentlyActivePage == view]
 		
 		if (this.currentlyActivePage == view) { this.bringPageToFront(view) }
@@ -491,14 +499,14 @@ class MainSector extends JABView {
 		cv.displayTitle = 'CV'
 		cv.imagePaths = []
 		for (var i = 0; i < 5; i++) {
-			cv.imagePaths.push(this.imagePathStem + '/About Page/CV/' + (i + 1) + '.png')
+			cv.imagePaths.push(this.imagePathStem + '/CV Page/CV/' + (i + 1) + '.png')
 		}
 		
 		let article = new PDFDocument()
 		article.displayTitle = 'Artikel'
 		article.imagePaths = []
 		for (var i = 0; i < 2; i++) {
-			article.imagePaths.push(this.imagePathStem + '/About Page/Article/' + (i + 1) + '.png')
+			article.imagePaths.push(this.imagePathStem + '/Article Page/Article/' + (i + 1) + '.png')
 		}
 		
 		
@@ -512,7 +520,7 @@ class MainSector extends JABView {
 		cv.displayTitle = 'CV'
 		cv.imagePaths = []
 		for (var i = 0; i < 5; i++) {
-			cv.imagePaths.push(this.imagePathStem + '/About Page/CV/' + (i + 1) + '.png')
+			cv.imagePaths.push(this.imagePathStem + '/CV Page/CV/' + (i + 1) + '.png')
 		}
 		return cv
 	}
@@ -522,7 +530,7 @@ class MainSector extends JABView {
 		article.displayTitle = 'Artikel'
 		article.imagePaths = []
 		for (var i = 0; i < 2; i++) {
-			article.imagePaths.push(this.imagePathStem + '/About Page/Article/' + (i + 1) + '.png')
+			article.imagePaths.push(this.imagePathStem + '/Article Page/Article/' + (i + 1) + '.png')
 		}
 		return article
 	}

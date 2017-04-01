@@ -19,8 +19,6 @@ class ProjectPage extends JABView {
 			minimumDistanceFromImageViewToLogo: 15,
 			
 			projectRegionAspectRatio: (2448.0/3264.0),
-			imageAspectRatio: (2448.0/3264.0),
-			
 			
 			sizeOfArrowButtons: 60,
 			insetForArrowButtons: 20,
@@ -30,7 +28,6 @@ class ProjectPage extends JABView {
 		
 		// UI
 		this.projectRegion = new ProjectRegion('ProjectRegion')
-		this.imageView = new JABView('ImageView')
 		this.prevButton = new JABEmbeddedImageView('PrevButton')
 		this.nextButton = new JABEmbeddedImageView('NextButton')
 		
@@ -60,18 +57,12 @@ class ProjectPage extends JABView {
 		this.addPrevButton()
 		this.addNextButton()
 		
-		
-		this.addImageView()
 	}
 	
 	
 	
 	addProjectRegion () {
 		this.addSubview(this.projectRegion)
-	}
-	
-	addImageView () {
-		this.addSubview(this.imageView)
 	}
 	
 	addPrevButton () {
@@ -98,9 +89,6 @@ class ProjectPage extends JABView {
 		
 		this.configureProjectRegion()
 		this.positionProjectRegion()
-		
-		// this.configureImageView()
-		// this.positionImageView()
 		
 		this.configurePrevButton()
 		this.positionPrevButton()
@@ -162,57 +150,6 @@ class ProjectPage extends JABView {
 	}
 	
 	
-	// Image View
-	configureImageView () {
-		var view = this.imageView
-		
-		view.clickable = true // Check for clicks on the imageView because they should not close the project as clicking elsewhere would do
-		
-		// Safely retrieve correct image path from projectDataBundles and assign it to the image view
-		if (this.state.projectIndex != null) {
-			if (this.state.projectDataBundles.length > this.state.projectIndex) {
-				var projectDataBundle = this.state.projectDataBundles[this.state.projectIndex]
-				if (this.state.imageIndex != null) {
-					if (projectDataBundle.imagePaths.length > this.state.imageIndex) {
-						
-						view.backgroundImage = projectDataBundle.imagePaths[this.state.imageIndex]
-						view.backgroundSize = 'contain'
-					}
-				}
-			}
-		}
-		
-
-	}
-	
-	positionImageView () {
-		var view = this.imageView
-		var newFrame = new CGRect()
-		
-		// Set size according to legacy positioning, where all images were 16x9, because the site was tuned for this size
-		newFrame.size.width = applicationRoot.contentWidth * 0.7
-		newFrame.size.height = newFrame.size.width * this.parameters.imageAspectRatio
-		
-		// Now calculated the unused height or width of imageView and eliminate it. This will not alter the size of the image, only the fact that without this there is an invisible region around the image which intercepts a click but does not react.
-		if (view.backgroundImageLoaded && view.backgroundImageObject.width != 0 && this.parameters.imageAspectRatio != 0) {
-			let actualAspectRatio = view.backgroundImageObject.height/view.backgroundImageObject.width
-			if (actualAspectRatio > this.parameters.imageAspectRatio) {
-				newFrame.size.width -= ((newFrame.size.height/this.parameters.imageAspectRatio) - (newFrame.size.height/actualAspectRatio))
-			} else {
-				newFrame.size.height -= (newFrame.size.width * (this.parameters.imageAspectRatio - actualAspectRatio))
-			}
-		}
-		
-
-		newFrame.origin.x = (this.width - newFrame.size.width)/2
-		newFrame.origin.y = this.parameters.reservedTopBuffer + ((this.height - this.parameters.reservedTopBuffer) - newFrame.size.height)/2
-		
-		if (newFrame.origin.y < (this.parameters.reservedTopBuffer + this.parameters.minimumDistanceFromImageViewToLogo)) {
-			newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.minimumDistanceFromImageViewToLogo
-		}
-							
-		view.frame = newFrame
-	}
 	
 	
 	

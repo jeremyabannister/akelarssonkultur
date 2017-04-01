@@ -265,6 +265,10 @@ class UILabel extends JABView {
 		this.font.lineHeightUnit = newLineHeightUnit
 		this.font = this.font // Reassiging the font triggers set font which updates the DOM
 	}
+	
+	
+	
+	
 
 
 	//

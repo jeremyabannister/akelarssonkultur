@@ -158,7 +158,6 @@ class Header extends JABView {
 		view.fontWeight = 'bold'
 		view.textAlign = 'right'
 		
-		
 		if (sizeClass == 'xxs' || sizeClass == 'xs' || sizeClass == 's') {
 			view.opacity = 0
 		} else {

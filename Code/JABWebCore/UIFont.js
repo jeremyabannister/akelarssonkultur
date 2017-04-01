@@ -172,6 +172,7 @@ class UIFont {
 			
 			var cssOptions = {
 				position: 'absolute',
+				'background-color': 'blue',
 				
 				left: '-1000px',
 				top: '-1000px',

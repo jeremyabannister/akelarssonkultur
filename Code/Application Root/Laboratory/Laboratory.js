@@ -10,10 +10,11 @@ class Laboratory extends JABView {
 		// UI
     	this.view1 = new JABImageView('View1')
     	this.view2 = new JABImageView('View2')
+    	this.label = new UILabel('Label')
 
 
 		this.defaultTimeInterval = 5000
-		this.specificTimeIntervals = [2000] // First one specifies start delay and is necessary
+		this.specificTimeIntervals = [35] // First one specifies start delay and is necessary
 
 		this.numberOfExperiments = 0 // Actual value is set in runExperiment which is run on the next line
 
@@ -57,6 +58,7 @@ class Laboratory extends JABView {
 		
 		this.addView1()
 		this.addView2()
+		this.addLabel()
 		
 	}
 	
@@ -68,6 +70,10 @@ class Laboratory extends JABView {
 	
 	addView1 () {
 		this.addSubview(this.view2)
+	}
+	
+	addLabel () {
+		this.addSubview(this.label)
 	}
 	
 
@@ -84,6 +90,9 @@ class Laboratory extends JABView {
 
 	    this.configureView2()
 	    this.positionView2()
+	    
+	    this.configureLabel()
+	    this.positionLabel()
 	}
 
 
@@ -102,8 +111,8 @@ class Laboratory extends JABView {
 		var view = this.view1
 		var newFrame = new CGRect()
 							
-		newFrame.size.width = 100
-		newFrame.size.height = 100
+		newFrame.size.width = 300
+		newFrame.size.height = 300
 
 		newFrame.origin.x = 300
 		newFrame.origin.y = 100
@@ -129,16 +138,50 @@ class Laboratory extends JABView {
 		var view = this.view2
 		var newFrame = new CGRect()
 				
-		newFrame.size.width = 100
-		newFrame.size.height = 100
+		newFrame.size.width = 59
+		newFrame.size.height = 17
 				
-		newFrame.origin.x = 600
-		newFrame.origin.y = 200
+		newFrame.origin.x = 500
+		newFrame.origin.y = 500
 				
 				
 		view.frame = newFrame
 		
 		
+	}
+	
+	
+	
+	
+	// Label
+	configureLabel () {
+		let view = this.label
+		
+		view.text = "HEM"
+		view.fontWeight = 'bold'
+		view.fontFamily = 'siteFont'
+		view.fontSize = 16
+		
+		view.widthIsAuto = true
+		view.heightIsAuto = true
+		
+		view.green()
+	}
+	
+	positionLabel () {
+		let view = this.label
+		let newFrame = new CGRect()
+		let size = view.font.sizeOfString(view.text)
+		var testDiv = document.getElementById('UIFontReservedIDForTextMeasurement')
+		console.log('out', testDiv.clientWidth, testDiv.clientHeight)
+							
+		newFrame.size.width = size.width
+		newFrame.size.height = size.height
+
+		newFrame.origin.x = 100
+		newFrame.origin.y = 100
+							
+		view.frame = newFrame
 	}
 
 
@@ -164,9 +207,9 @@ class Laboratory extends JABView {
 			
 			// var ref = new Firebase("https://sonjatsypin-b7a3e.firebaseio.co/Resources/Images/Home Page/Featured Stills")
 			
-			$(view1.selector).css({
-				'background-image': 'url(./Resources/1.png)'
-			})
+			var testDiv = document.getElementById('UIFontReservedIDForTextMeasurement')
+			console.log(testDiv)
+			console.log('after', testDiv.clientWidth, testDiv.clientHeight)
 			
 			
 		} else if (experimentNumber == 2) {

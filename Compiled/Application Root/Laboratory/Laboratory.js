@@ -26,9 +26,10 @@ var Laboratory = function (_JABView) {
 		// UI
 		_this.view1 = new JABImageView('View1');
 		_this.view2 = new JABImageView('View2');
+		_this.label = new UILabel('Label');
 
 		_this.defaultTimeInterval = 5000;
-		_this.specificTimeIntervals = [2000]; // First one specifies start delay and is necessary
+		_this.specificTimeIntervals = [35]; // First one specifies start delay and is necessary
 
 		_this.numberOfExperiments = 0; // Actual value is set in runExperiment which is run on the next line
 
@@ -73,6 +74,7 @@ var Laboratory = function (_JABView) {
 
 			this.addView1();
 			this.addView2();
+			this.addLabel();
 		}
 	}, {
 		key: 'addView2',
@@ -83,6 +85,11 @@ var Laboratory = function (_JABView) {
 		key: 'addView1',
 		value: function addView1() {
 			this.addSubview(this.view2);
+		}
+	}, {
+		key: 'addLabel',
+		value: function addLabel() {
+			this.addSubview(this.label);
 		}
 
 		// Update
@@ -97,6 +104,9 @@ var Laboratory = function (_JABView) {
 
 			this.configureView2();
 			this.positionView2();
+
+			this.configureLabel();
+			this.positionLabel();
 		}
 
 		// View 1
@@ -116,8 +126,8 @@ var Laboratory = function (_JABView) {
 			var view = this.view1;
 			var newFrame = new CGRect();
 
-			newFrame.size.width = 100;
-			newFrame.size.height = 100;
+			newFrame.size.width = 300;
+			newFrame.size.height = 300;
 
 			newFrame.origin.x = 300;
 			newFrame.origin.y = 100;
@@ -138,11 +148,46 @@ var Laboratory = function (_JABView) {
 			var view = this.view2;
 			var newFrame = new CGRect();
 
-			newFrame.size.width = 100;
-			newFrame.size.height = 100;
+			newFrame.size.width = 59;
+			newFrame.size.height = 17;
 
-			newFrame.origin.x = 600;
-			newFrame.origin.y = 200;
+			newFrame.origin.x = 500;
+			newFrame.origin.y = 500;
+
+			view.frame = newFrame;
+		}
+
+		// Label
+
+	}, {
+		key: 'configureLabel',
+		value: function configureLabel() {
+			var view = this.label;
+
+			view.text = "HEM";
+			view.fontWeight = 'bold';
+			view.fontFamily = 'siteFont';
+			view.fontSize = 16;
+
+			view.widthIsAuto = true;
+			view.heightIsAuto = true;
+
+			view.green();
+		}
+	}, {
+		key: 'positionLabel',
+		value: function positionLabel() {
+			var view = this.label;
+			var newFrame = new CGRect();
+			var size = view.font.sizeOfString(view.text);
+			var testDiv = document.getElementById('UIFontReservedIDForTextMeasurement');
+			console.log('out', testDiv.clientWidth, testDiv.clientHeight);
+
+			newFrame.size.width = size.width;
+			newFrame.size.height = size.height;
+
+			newFrame.origin.x = 100;
+			newFrame.origin.y = 100;
 
 			view.frame = newFrame;
 		}
@@ -170,9 +215,9 @@ var Laboratory = function (_JABView) {
 
 				// var ref = new Firebase("https://sonjatsypin-b7a3e.firebaseio.co/Resources/Images/Home Page/Featured Stills")
 
-				$(view1.selector).css({
-					'background-image': 'url(./Resources/1.png)'
-				});
+				var testDiv = document.getElementById('UIFontReservedIDForTextMeasurement');
+				console.log(testDiv);
+				console.log('after', testDiv.clientWidth, testDiv.clientHeight);
 			} else if (experimentNumber == 2) {
 
 				if (this.downloaded) {

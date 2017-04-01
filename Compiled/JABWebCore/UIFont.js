@@ -52,6 +52,7 @@ var UIFont = function () {
 
 				var cssOptions = {
 					position: 'absolute',
+					'background-color': 'blue',
 
 					left: '-1000px',
 					top: '-1000px',

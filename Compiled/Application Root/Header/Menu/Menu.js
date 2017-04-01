@@ -45,6 +45,9 @@ var Menu = function (_JABView) {
 		}
 		_this.underline = new JABView('Underline');
 
+		// Parameters
+		_this.heightOfUnderline = 1;
+		_this.topBufferForUnderline = 5;
 		return _this;
 	}
 
@@ -123,6 +126,9 @@ var Menu = function (_JABView) {
 
 				view.textAlign = this.textAlign;
 
+				view.widthIsAuto = true;
+				view.heightIsAuto = true;
+
 				if (this.fadeUnselectedButtons) {
 					if (i != this.selectedIndex) {
 						view.opacity = 0.6;
@@ -144,13 +150,9 @@ var Menu = function (_JABView) {
 			for (var i = 0; i < this.buttons.length; i++) {
 				var view = this.buttons[i];
 				var newFrame = new CGRect();
-				var size = view.font.sizeOfString(view.text);
 
-				newFrame.size.width = size.width;
-				newFrame.size.height = size.height;
-
-				if (newFrame.size.height > tallestHeight) {
-					tallestHeight = newFrame.size.height;
+				if (view.height > tallestHeight) {
+					tallestHeight = view.height;
 				}
 
 				if (i == 0) {
@@ -159,13 +161,13 @@ var Menu = function (_JABView) {
 					newFrame.origin.x = this.buttons[i - 1].right + betweenBufferForButtons;
 				}
 
-				newFrame.origin.y = (this.height - newFrame.size.height) / 2;
+				newFrame.origin.y = 0;
 
 				view.frame = newFrame;
 			}
 
 			this.requiredWidth = this.buttons[i - 1].right;
-			this.requiredHeight = tallestHeight;
+			this.requiredHeight = tallestHeight + this.topBufferForUnderline + this.heightOfUnderline;
 		}
 	}, {
 		key: 'configureUnderline',
@@ -184,7 +186,6 @@ var Menu = function (_JABView) {
 		key: 'positionUnderline',
 		value: function positionUnderline() {
 
-			var bufferBetweenUnderlinedButtonAndUnderline = 5;
 			var positionIndex = this.selectedIndex;
 			if (positionIndex == -1) {
 				positionIndex = 0;
@@ -194,10 +195,10 @@ var Menu = function (_JABView) {
 			var newFrame = new CGRect();
 
 			newFrame.size.width = underlinedButton.width - 2;
-			newFrame.size.height = 1;
+			newFrame.size.height = this.heightOfUnderline;
 
 			newFrame.origin.x = underlinedButton.x + (underlinedButton.width - newFrame.size.width) / 2 - 1;
-			newFrame.origin.y = underlinedButton.bottom + bufferBetweenUnderlinedButtonAndUnderline;
+			newFrame.origin.y = underlinedButton.bottom + this.topBufferForUnderline;
 
 			this.underline.frame = newFrame;
 		}
