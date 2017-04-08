@@ -341,8 +341,8 @@ var ApplicationRoot = function (_JABApplicationRoot) {
 			this.state.imagesLeftToLoad = 2; // Start the counter at 2 because we know that besides the photos added here we need to load the cover photo and the profile picture
 			this.projectDataBundles = [];
 
-			var numberOfFolders = 12;
-			var numbersOfPhotos = [5, 1, 3, 3, 1, 1, 1, 1, 3, 1, 1, 1];
+			var numberOfFolders = 16;
+			var numbersOfPhotos = [5, 1, 3, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1];
 
 			for (var i = 0; i < numberOfFolders; i++) {
 				var folderBundle = new ProjectDataBundle();

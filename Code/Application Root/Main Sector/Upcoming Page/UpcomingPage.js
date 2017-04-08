@@ -8,10 +8,16 @@ class UpcomingPage extends JABView {
 		// Parameters
 		this.parameters = {
 			reservedTopBuffer: 0,
+			
+			widthOfPhoto: 400,
+			heightToWidthAspectRatioOfPhoto: (1224.0/1632.0),
+			topBufferForPhoto: 30,
+			
 			topBufferForParagraph: 70,
 		}
 		
 		// UI
+		this.photo = new JABView('Photo')
 		this.paragraph = new TitledParagraph('Paragraph')
 		
 	}
@@ -36,10 +42,16 @@ class UpcomingPage extends JABView {
 	// Add
 	addAllUI () {
 		
+		this.addPhoto()
 		this.addParagraph()
 		
 	}
 	
+	
+	
+	addPhoto () {
+		this.addSubview(this.photo)
+	}
 	
 	addParagraph () {
 		this.addSubview(this.paragraph)
@@ -51,10 +63,37 @@ class UpcomingPage extends JABView {
 		super.updateAllUI()
 		
 		
+		this.configurePhoto()
+		this.positionPhoto()
+		
 		this.configureParagraph()
 		this.positionParagraph()
 	}
 	
+	
+	
+	
+	
+	
+	// Photo
+	configurePhoto () {
+		let view = this.photo
+		
+		view.backgroundImage = resourcesDirectory + '/Images/Upcoming Page/Photo.jpg'
+	}
+	
+	positionPhoto () {
+		let view = this.photo
+		let newFrame = new CGRect()
+							
+		newFrame.size.width = this.parameters.widthOfPhoto
+		newFrame.size.height = newFrame.size.width * this.parameters.heightToWidthAspectRatioOfPhoto
+
+		newFrame.origin.x = (this.width - newFrame.size.width)/2
+		newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForPhoto
+							
+		view.frame = newFrame
+	}
 	
 	
 	// Paragraph
@@ -76,7 +115,7 @@ class UpcomingPage extends JABView {
 		newFrame.size.height = view.requiredHeightForWidth(newFrame.size.width)
 
 		newFrame.origin.x = (this.width - newFrame.size.width)/2
-		newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForParagraph
+		newFrame.origin.y = this.photo.bottom + this.parameters.topBufferForParagraph
 		
 		
 		view.frame = newFrame

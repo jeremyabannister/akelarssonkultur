@@ -24,10 +24,16 @@ var UpcomingPage = function (_JABView) {
 
 		_this.parameters = {
 			reservedTopBuffer: 0,
+
+			widthOfPhoto: 400,
+			heightToWidthAspectRatioOfPhoto: 1224.0 / 1632.0,
+			topBufferForPhoto: 30,
+
 			topBufferForParagraph: 70
 		};
 
 		// UI
+		_this.photo = new JABView('Photo');
 		_this.paragraph = new TitledParagraph('Paragraph');
 
 		return _this;
@@ -53,7 +59,13 @@ var UpcomingPage = function (_JABView) {
 		key: 'addAllUI',
 		value: function addAllUI() {
 
+			this.addPhoto();
 			this.addParagraph();
+		}
+	}, {
+		key: 'addPhoto',
+		value: function addPhoto() {
+			this.addSubview(this.photo);
 		}
 	}, {
 		key: 'addParagraph',
@@ -68,8 +80,35 @@ var UpcomingPage = function (_JABView) {
 		value: function updateAllUI() {
 			_get(Object.getPrototypeOf(UpcomingPage.prototype), 'updateAllUI', this).call(this);
 
+			this.configurePhoto();
+			this.positionPhoto();
+
 			this.configureParagraph();
 			this.positionParagraph();
+		}
+
+		// Photo
+
+	}, {
+		key: 'configurePhoto',
+		value: function configurePhoto() {
+			var view = this.photo;
+
+			view.backgroundImage = resourcesDirectory + '/Images/Upcoming Page/Photo.jpg';
+		}
+	}, {
+		key: 'positionPhoto',
+		value: function positionPhoto() {
+			var view = this.photo;
+			var newFrame = new CGRect();
+
+			newFrame.size.width = this.parameters.widthOfPhoto;
+			newFrame.size.height = newFrame.size.width * this.parameters.heightToWidthAspectRatioOfPhoto;
+
+			newFrame.origin.x = (this.width - newFrame.size.width) / 2;
+			newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForPhoto;
+
+			view.frame = newFrame;
 		}
 
 		// Paragraph
@@ -97,7 +136,7 @@ var UpcomingPage = function (_JABView) {
 			newFrame.size.height = view.requiredHeightForWidth(newFrame.size.width);
 
 			newFrame.origin.x = (this.width - newFrame.size.width) / 2;
-			newFrame.origin.y = this.parameters.reservedTopBuffer + this.parameters.topBufferForParagraph;
+			newFrame.origin.y = this.photo.bottom + this.parameters.topBufferForParagraph;
 
 			view.frame = newFrame;
 		}
